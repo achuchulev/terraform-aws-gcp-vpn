@@ -58,33 +58,6 @@ resource "aws_vpn_connection" "aws-vpn-connection1" {
   }
 }
 
-resource "aws_security_group" "aws-allow-icmp" {
-  name        = "aws-allow-icmp"
-  description = "Allow icmp access from anywhere"
-  vpc_id      = var.aws-vpc-id
-
-  ingress {
-    from_port   = 8
-    to_port     = 0
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Allow SSH for iperf testing.
-resource "aws_security_group" "aws-allow-ssh" {
-  name        = "aws-allow-ssh"
-  description = "Allow ssh access from anywhere"
-  vpc_id      = var.aws-vpc-id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 # Allow traffic from the VPN subnets.
 resource "aws_security_group" "aws-allow-vpn" {
   name        = "aws-allow-vpn"
@@ -96,34 +69,6 @@ resource "aws_security_group" "aws-allow-vpn" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = [data.google_compute_subnetwork.gcp-subnetwork.ip_cidr_range]
-  }
-}
-
-# Allow TCP traffic from the Internet.
-resource "aws_security_group" "aws-allow-internet" {
-  name        = "aws-allow-internet"
-  description = "Allow http traffic from the internet"
-  vpc_id      = var.aws-vpc-id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
