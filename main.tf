@@ -34,18 +34,11 @@ resource "aws_customer_gateway" "aws-cgw" {
   }
 }
 
-resource "aws_default_route_table" "aws-vpc" {
-  default_route_table_id = data.aws_vpc.selected.main_route_table_id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = data.aws_internet_gateway.default.internet_gateway_id
-  }
-
-  propagating_vgws = [
-    aws_vpn_gateway.aws-vpn-gw.id,
-  ]
+resource "aws_vpn_gateway_route_propagation" "example" {
+  vpn_gateway_id = aws_vpn_gateway.aws-vpn-gw.id
+  route_table_id = data.aws_vpc.selected.main_route_table_id
 }
+
 
 resource "aws_vpn_connection" "aws-vpn-connection1" {
   vpn_gateway_id      = aws_vpn_gateway.aws-vpn-gw.id
