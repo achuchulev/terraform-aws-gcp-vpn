@@ -13,11 +13,12 @@
 
 ```
 gcp_credentials_file_path = "/path/to/your/gcloud/credentials.json"
-aws_credentials_file_path = "/path/to/your/aws/credentials"
-aws-vpc-id = "your_vpc_id"
-gcp_project_id = "your_project_id"
-gcp-network-name = "gcp_vpc_network_name"
-gcp-subnet1-name = "gcp_vpc_subnet1_name"
+gcp_project_id            = "your_project_id"
+gcp-network-name          = "gcp_vpc_network_name"
+gcp-subnet1-name          = "gcp_vpc_subnet1_name"
+access_key                = "your_aws_access_key"
+secret_key                = "your_aws_secret_key"
+aws-vpc-id                = "your_vpc_id"
 ```
 
 - Create `variables.tf` file
@@ -28,7 +29,8 @@ variable "gcp_region" {}
 variable "gcp_project_id" {}
 variable "gcp-network-name" {}
 variable "gcp-subnet1-name" {}
-variable "aws_credentials_file_path" {}
+variable "access_key" {}
+variable "secret_key" {}
 variable "aws_region" {}
 variable "aws-vpc-id" {}
 
@@ -43,7 +45,8 @@ variable "aws-vpc-id" {}
 | gcp_region | GCP region | string  | yes | yes
 | gcp-network-name | VPC network name | string  | - | yes
 | gcp_subnet1_cidr | VPC subnet CIDR block | string  | yes | yes
-| aws_credentials_file_path | Locate the AWS credentials file | string  | - | yes
+| access_key | Requester AWS access key | string | - | yes
+| secret_key | Requester AWS secret key | string | - | yes
 | aws_region | AWS region | string  | yes | yes
 | aws-vpc-id | AWS VPC id | string  | - | yes
 | GCP_TUN1_VPN_GW_ASN | Tunnel 1 - Virtual Private Gateway ASN | number  | yes | no
@@ -62,7 +65,8 @@ module "aws-gcp-vpn" {
   gcp-network-name          = var.gcp-network-name
   gcp-subnet1-name          = var.gcp-subnet1-name
   gcp_region                = var.gcp_region
-  aws_credentials_file_path = var.aws_credentials_file_path
+  access_key                = var.access_key
+  secret_key                = var.secret_key
   aws_region                = var.aws_region
   aws-vpc-id                = var.aws-vpc-id
 }
