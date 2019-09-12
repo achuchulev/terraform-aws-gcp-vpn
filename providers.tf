@@ -13,8 +13,8 @@ provider "google" {
 provider "aws" {
   version = ">= 2.21.1"
 
-  shared_credentials_file = pathexpand(var.aws_credentials_file_path)
-
+  access_key = var.access_key
+  secret_key = var.secret_key
   region = var.aws_region
 }
 
