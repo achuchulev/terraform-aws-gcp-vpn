@@ -1,8 +1,7 @@
 // ------------- AWS VARS -------------
-variable "aws_credentials_file_path" {
-  description = "Locate the AWS credentials file."
-  type        = string
-}
+variable "access_key" {}
+
+variable "secret_key" {}
 
 variable "aws_region" {
   description = "Default to N.Virginia region."
