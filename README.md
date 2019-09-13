@@ -19,6 +19,7 @@ gcp-subnet1-name          = "gcp_vpc_subnet1_name"
 access_key                = "your_aws_access_key"
 secret_key                = "your_aws_secret_key"
 aws-vpc-id                = "your_vpc_id"
+aws_subnet_cidrs          = ["10.100.0.0/24","10.100.1.0/24"]
 ```
 
 - Create `variables.tf` file
@@ -33,6 +34,7 @@ variable "access_key" {}
 variable "secret_key" {}
 variable "aws_region" {}
 variable "aws-vpc-id" {}
+variable "aws_subnet_cidrs" {}
 
 ```
 
@@ -49,6 +51,7 @@ variable "aws-vpc-id" {}
 | secret_key | Requester AWS secret key | string | - | yes
 | aws_region | AWS region | string  | yes | yes
 | aws-vpc-id | AWS VPC id | string  | - | yes
+| aws_subnet_cidrs | List of AWS VPC subnet cidrs | list | - | yes
 | GCP_TUN1_VPN_GW_ASN | Tunnel 1 - Virtual Private Gateway ASN | number  | yes | no
 | GCP_TUN1_CUSTOMER_GW_INSIDE_NETWORK_CIDR | Tunnel 1 - Customer Gateway from Inside IP Address CIDR block | number  | yes | no
 | GCP_TUN2_VPN_GW_ASN | Tunnel 2 - Virtual Private Gateway ASN | number  | yes | no
@@ -69,6 +72,7 @@ module "aws-gcp-vpn" {
   secret_key                = var.secret_key
   aws_region                = var.aws_region
   aws-vpc-id                = var.aws-vpc-id
+  aws_subnet_cidrs          = var.aws_subnet_cidrs
 }
 
 ```
