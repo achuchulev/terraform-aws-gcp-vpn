@@ -4,15 +4,6 @@ data "aws_vpc" "selected" {
   id = var.aws-vpc-id
 }
 
-data "aws_subnet_ids" "all" {
-  vpc_id = var.aws-vpc-id
-}
-
-data "aws_subnet" "subnets" {
-  count = length(data.aws_subnet_ids.all.ids)
-  id    = tolist(data.aws_subnet_ids.all.ids)[count.index]
-}
-
 data "aws_internet_gateway" "default" {
   filter {
     name   = "attachment.vpc-id"
@@ -220,6 +211,6 @@ resource "google_compute_firewall" "gcp-allow-vpn" {
     ports    = ["0-65535"]
   }
 
-  source_ranges = data.aws_subnet.subnets.*.cidr_block
+  source_ranges = var.aws_subnet_cidrs
 }
 
