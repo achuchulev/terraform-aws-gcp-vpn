@@ -4,13 +4,6 @@ data "aws_vpc" "selected" {
   id = var.aws-vpc-id
 }
 
-data "aws_internet_gateway" "default" {
-  filter {
-    name   = "attachment.vpc-id"
-    values = [var.aws-vpc-id]
-  }
-}
-
 resource "aws_vpn_gateway" "aws-vpn-gw" {
   vpc_id = var.aws-vpc-id
 }
