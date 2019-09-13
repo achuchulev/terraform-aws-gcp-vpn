@@ -12,6 +12,12 @@ variable "aws-vpc-id" {
   description = "AWS VPC id"
 }
 
+variable "aws_subnet_cidrs" {
+  description = "List of AWS VPC subnet cidrs"
+  type        = list
+}
+
+
 // ------------- GCP VARS -------------
 
 variable "gcp_credentials_file_path" {
