@@ -14,11 +14,11 @@
 ```
 gcp_credentials_file_path = "/path/to/your/gcloud/credentials.json"
 gcp_project_id            = "your_project_id"
-gcp-network-name          = "gcp_vpc_network_name"
-gcp-subnet1-name          = "gcp_vpc_subnet1_name"
+gcp_network_name          = "gcp_vpc_network_name"
+gcp_subnet_name           = "gcp_vpc_subnet1_name"
 access_key                = "your_aws_access_key"
 secret_key                = "your_aws_secret_key"
-aws-vpc-id                = "your_vpc_id"
+aws_vpc_id                = "your_vpc_id"
 aws_subnet_cidrs          = ["10.100.0.0/24","10.100.1.0/24"]
 ```
 
@@ -28,12 +28,12 @@ aws_subnet_cidrs          = ["10.100.0.0/24","10.100.1.0/24"]
 variable "gcp_credentials_file_path" {}
 variable "gcp_region" {}
 variable "gcp_project_id" {}
-variable "gcp-network-name" {}
-variable "gcp-subnet1-name" {}
+variable "gcp_network_name" {}
+variable "gcp_subnet_name" {}
 variable "access_key" {}
 variable "secret_key" {}
 variable "aws_region" {}
-variable "aws-vpc-id" {}
+variable "aws_vpc_id" {}
 variable "aws_subnet_cidrs" {}
 
 ```
@@ -45,12 +45,12 @@ variable "aws_subnet_cidrs" {}
 | gcp_credentials_file_path | Locate the GCP credentials .json file. | string  | - | yes
 | gcp_project_id | GCP Project ID. | string  | - | yes
 | gcp_region | GCP region | string  | yes | yes
-| gcp-network-name | VPC network name | string  | - | yes
-| gcp_subnet1_cidr | VPC subnet CIDR block | string  | yes | yes
+| gcp_network_name | VPC network name | string  | - | yes
+| gcp_subnet_name | VPC subnet name | string  | - | yes
 | access_key | Requester AWS access key | string | - | yes
 | secret_key | Requester AWS secret key | string | - | yes
 | aws_region | AWS region | string  | yes | yes
-| aws-vpc-id | AWS VPC id | string  | - | yes
+| aws_vpc_id | AWS VPC id | string  | - | yes
 | aws_subnet_cidrs | List of AWS VPC subnet cidrs | list | - | yes
 | GCP_TUN1_VPN_GW_ASN | Tunnel 1 - Virtual Private Gateway ASN | number  | yes | no
 | GCP_TUN1_CUSTOMER_GW_INSIDE_NETWORK_CIDR | Tunnel 1 - Customer Gateway from Inside IP Address CIDR block | number  | yes | no
@@ -65,13 +65,13 @@ module "aws-gcp-vpn" {
   
   gcp_credentials_file_path = var.gcp_credentials_file_path
   gcp_project_id            = var.gcp_project_id
-  gcp-network-name          = var.gcp-network-name
-  gcp-subnet1-name          = var.gcp-subnet1-name
+  gcp_network_name          = var.gcp_network_name
+  gcp_subnet_name           = var.gcp_subnet1_name
   gcp_region                = var.gcp_region
   access_key                = var.access_key
   secret_key                = var.secret_key
   aws_region                = var.aws_region
-  aws-vpc-id                = var.aws-vpc-id
+  aws_vpc_id                = var.aws_vpc_id
   aws_subnet_cidrs          = var.aws_subnet_cidrs
 }
 
