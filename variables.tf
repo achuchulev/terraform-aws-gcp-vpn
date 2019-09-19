@@ -8,7 +8,7 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "aws-vpc-id" {
+variable "aws_vpc_id" {
   description = "AWS VPC id"
 }
 
@@ -35,11 +35,11 @@ variable "gcp_region" {
   default     = "us-east4"
 }
 
-variable "gcp-network-name" {
+variable "gcp_network_name" {
   description = "GCP VPC Name"
 }
 
-variable "gcp-subnet1-name" {
+variable "gcp_subnet_name" {
   description = "GCP VPC Subnet Name"
 }
 
