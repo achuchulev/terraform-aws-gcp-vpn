@@ -1,11 +1,11 @@
 // ---------- AWS VPN Connection setup ----------
 
 data "aws_vpc" "selected" {
-  id = var.aws-vpc-id
+  id = var.aws_vpc_id
 }
 
 resource "aws_vpn_gateway" "aws-vpn-gw" {
-  vpc_id = var.aws-vpc-id
+  vpc_id = var.aws_vpc_id
 }
 
 resource "aws_customer_gateway" "aws-cgw" {
@@ -38,7 +38,7 @@ resource "aws_vpn_connection" "aws-vpn-connection1" {
 resource "aws_security_group" "aws-allow-vpn" {
   name        = "aws-allow-vpn"
   description = "Allow all traffic from vpn resources"
-  vpc_id      = var.aws-vpc-id
+  vpc_id      = var.aws_vpc_id
 
   ingress {
     from_port   = 0
@@ -51,11 +51,11 @@ resource "aws_security_group" "aws-allow-vpn" {
 // ----------GCP VPN Connection setup----------
 
 data "google_compute_network" "my-network" {
-  name = var.gcp-network-name
+  name = var.gcp_network_name
 }
 
 data "google_compute_subnetwork" "gcp-subnetwork" {
-  name   = var.gcp-subnet1-name
+  name   = var.gcp_subnet_name
   region = var.gcp_region
 }
 
@@ -66,7 +66,7 @@ resource "google_compute_address" "gcp-vpn-ip" {
 
 resource "google_compute_vpn_gateway" "gcp-vpn-gw" {
   name    = "gcp-vpn-gw-${var.gcp_region}"
-  network = var.gcp-network-name
+  network = var.gcp_network_name
   region  = var.gcp_region
 }
 
@@ -117,7 +117,7 @@ resource "google_compute_vpn_tunnel" "gcp-tunnel1" {
 resource "google_compute_router" "gcp-router1" {
   name    = "gcp-router1"
   region  = var.gcp_region
-  network = var.gcp-network-name
+  network = var.gcp_network_name
 
   bgp {
     asn = aws_customer_gateway.aws-cgw.bgp_asn
@@ -165,7 +165,7 @@ resource "google_compute_vpn_tunnel" "gcp-tunnel2" {
 resource "google_compute_router" "gcp-router2" {
   name    = "gcp-router2"
   region  = var.gcp_region
-  network = var.gcp-network-name
+  network = var.gcp_network_name
 
   bgp {
     asn = aws_customer_gateway.aws-cgw.bgp_asn
@@ -191,8 +191,8 @@ resource "google_compute_router_interface" "router_interface2" {
 
 # Allow traffic from the VPN subnets.
 resource "google_compute_firewall" "gcp-allow-vpn" {
-  name    = "${var.gcp-network-name}-gcp-allow-vpn"
-  network = var.gcp-network-name
+  name    = "${var.gcp_network_name}-gcp-allow-vpn"
+  network = var.gcp_network_name
 
   allow {
     protocol = "tcp"
