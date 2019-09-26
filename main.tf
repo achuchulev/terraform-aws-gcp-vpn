@@ -23,6 +23,20 @@ resource "aws_vpn_gateway_route_propagation" "example" {
   route_table_id = data.aws_vpc.selected.main_route_table_id
 }
 
+data "aws_route_table" "public" {
+  vpc_id = var.aws_vpc_id
+
+  filter {
+    name   = "tag:Name"
+    values = ["public"]
+  }
+}
+
+resource "aws_vpn_gateway_route_propagation" "public" {
+  vpn_gateway_id = aws_vpn_gateway.aws-vpn-gw.id
+  route_table_id = data.aws_route_table.public.route_table_id
+}
+
 resource "aws_vpn_connection" "aws-vpn-connection1" {
   vpn_gateway_id      = aws_vpn_gateway.aws-vpn-gw.id
   customer_gateway_id = aws_customer_gateway.aws-cgw.id
